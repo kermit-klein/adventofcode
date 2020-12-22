@@ -11,15 +11,24 @@ for (let i = 0; i < data.length; i++) {
 
 /// part 2
 
+// function checkElement(n) {
+//   if (n[n.length - 1] <= 0) {
+//     n.shift();
+//     n.pop();
+//     return n;
+//   }
+//   let newN = Math.floor(parseInt(n[n.length - 1]) / 3) - 2;
+//   n.push(newN);
+//   return checkElement(n);
+// }
+
 function checkElement(n) {
-  if (n[n.length - 1] <= 0) {
-    n.shift();
-    n.pop();
-    return n;
+  if (Math.floor(parseInt(n) / 3) - 2 <= 1) {
+    return [];
   }
-  let newN = Math.floor(parseInt(n[n.length - 1]) / 3) - 2;
-  n.push(newN);
-  return checkElement(n);
+  let arr = checkElement(Math.floor(parseInt(n) / 3) - 2);
+  arr.push(Math.floor(parseInt(n) / 3) - 2);
+  return arr;
 }
 
 let calculateFuel = (arr) => {
