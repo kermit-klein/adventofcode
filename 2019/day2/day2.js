@@ -37,8 +37,6 @@ function reduceCodePart2(arr) {
   return arr[0];
 }
 
-// console.log(reduceCodePart2(data));
-
 function findInput() {
   for (let i = 0; i < 100; i++) {
     for (let j = i; j < 100; j++) {
