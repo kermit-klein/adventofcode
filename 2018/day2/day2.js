@@ -28,4 +28,31 @@ let check2and3 = (arr) => {
   console.log(count2, count3);
 };
 
-check2and3(data);
+// check2and3(data);
+
+//Part 2
+
+let findSmallDiff = (arr) => {
+  let seperated = [];
+  for (let i = 0; i < arr.length; i++) {
+    seperated.push(arr[i].split(""));
+  }
+
+  for (let i = 0; i < seperated.length; i++) {
+    for (let j = i; j < seperated.length; j++) {
+      let wrong = [];
+      for (let m = 0; m < seperated[i].length; m++) {
+        if (seperated[i][m] !== seperated[j][m]) {
+          wrong.push([i, j, m]);
+        }
+      }
+      if (wrong.length == 1) {
+        seperated[i].splice(wrong[0][2], 1);
+        return console.log(seperated[i].join(""));
+        // return console.log(seperated[j], seperated[i]);
+      }
+    }
+  }
+};
+
+findSmallDiff(data);
