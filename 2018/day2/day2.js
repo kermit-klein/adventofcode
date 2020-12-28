@@ -49,7 +49,6 @@ let findSmallDiff = (arr) => {
       if (wrong.length == 1) {
         seperated[i].splice(wrong[0][2], 1);
         return console.log(seperated[i].join(""));
-        // return console.log(seperated[j], seperated[i]);
       }
     }
   }
