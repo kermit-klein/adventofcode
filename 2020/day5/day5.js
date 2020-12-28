@@ -65,8 +65,19 @@ function findIDs() {
 }
 
 function findMaxId(arr) {
-  let sorted = arr.sort((a, b) => b - a);
+  let sorted = arr.sort((a, b) => a - b);
   return console.log(sorted[0]);
+}
+
+// part 2
+
+function findMyId(arr) {
+  let sorted = arr.sort((a, b) => a - b);
+  for (let i = 0; i < sorted.length - 1; i++) {
+    if (sorted[i + 1] - sorted[i] !== 1) {
+      return console.log(sorted[i], sorted[i + 1]);
+    }
+  }
 }
 
 seperateElements(data);
@@ -74,3 +85,4 @@ findColumn(nData);
 findRow(nData);
 findIDs();
 findMaxId(findIDs());
+findMyId(findIDs());
