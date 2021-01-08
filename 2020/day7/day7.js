@@ -2,30 +2,63 @@ const fs = require("fs");
 const text = fs.readFileSync("./data.txt").toString("utf-8");
 const data = text.split("\n");
 
-function getBag(e) {
-  let splitElement = e.split(" ");
-  return [splitElement[0], splitElement[1]];
+function checkBag(bag) {
+  let inside = bag.match(/\d\s\w+\s\w+/g);
+  if (inside !== null) {
+    inside.forEach((element) => {
+      if (element.split(" ")[1] == "shiny" && element.split(" ")[2] == "gold") {
+        return true;
+      }
+    });
+  }
 }
 
-function getBagProperty(e) {
-  let props = e.match(/\d\s\w+\s\w+/g);
-  return props;
-}
-
-function findShinyG(arr) {
-  let count = 0;
-  arr.forEach((element) => {
-    let properties = getBagProperty(element);
-
-    if (properties !== null) {
+function findBagInd(str1, str2) {
+  for (let i = 0; i < data.length; i++) {
+    if (str1 == data[i].split(" ")[0] && str2 == data[i].split(" ")[1]) {
+      return i;
     }
-
-    // let shinyB = properties[1] + properties[2];
-    // if (shinyB == "shinygold") {
-    //   count++;
-    // }
-  });
-  console.log(count);
+  }
 }
 
-findShinyG(data);
+function bagContent(bag) {
+  let inside = bag.match(/\d\s\w+\s\w+/g);
+  let bags = [];
+  if (inside !== null) {
+    inside.forEach((element) => {
+      bags.push(element.split(" ")[1] + " " + element.split(" ")[2]);
+    });
+  }
+  return bags;
+}
+
+/////////////////////////
+let bigList = [];
+function findGold(arr) {
+  if (arr.length == 0) {
+    return;
+  }
+  let list = [];
+  for (let j = 0; j < arr.length; j++) {
+    for (let i = 0; i < data.length; i++) {
+      let inside = data[i].match(/\d\s\w+\s\w+/g);
+      if (inside !== null) {
+        inside.forEach((element) => {
+          if (
+            element.split(" ")[1] == arr[j][0] &&
+            element.split(" ")[2] == arr[j][1]
+          ) {
+            list.push([data[i].split(" ")[0], data[i].split(" ")[1]]);
+          }
+        });
+      }
+    }
+  }
+  bigList.push(list);
+  return findGold(list);
+}
+
+function removeDups(arr) {}
+
+findGold([["shiny", "gold"]]);
+console.log(bigList[1]);
