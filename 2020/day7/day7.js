@@ -54,11 +54,19 @@ function findGold(arr) {
       }
     }
   }
-  bigList.push(list);
-  return findGold(list);
+  bigList.push(removeDups(list));
+  return findGold(removeDups(list));
 }
 
-function removeDups(arr) {}
+function removeDups(arr) {
+  let obj = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (!obj.hasOwnProperty(arr[i][0] + arr[i][1])) {
+      obj[arr[i][0] + arr[i][1]] = arr[i];
+    }
+  }
+  return Object.values(obj);
+}
 
 findGold([["shiny", "gold"]]);
-console.log(bigList[1]);
+console.log(removeDups(bigList.flat()).length);
