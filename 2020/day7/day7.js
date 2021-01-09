@@ -68,5 +68,42 @@ function removeDups(arr) {
   return Object.values(obj);
 }
 
-findGold([["shiny", "gold"]]);
-console.log(removeDups(bigList.flat()).length);
+// findGold([["shiny", "gold"]]);
+// console.log(removeDups(bigList.flat()).length);
+
+/// Part 2
+
+let bigList2 = [];
+function findNumbers(arr) {
+  if (arr.length == 0) {
+    return;
+  }
+  let list = [];
+  for (let j = 0; j < arr.length; j++) {
+    for (let i = 0; i < data.length; i++) {
+      if (
+        data[i].split(" ")[0] == arr[j][1] &&
+        data[i].split(" ")[1] == arr[j][2]
+      ) {
+        let inside = data[i].match(/\d\s\w+\s\w+/g);
+        if (inside !== null) {
+          inside.forEach((element) => {
+            let editEl = element.split(" ");
+            editEl[0] = "" + parseInt(editEl[0]) * parseInt(arr[j][0]);
+            list.push(editEl);
+          });
+        }
+      }
+    }
+  }
+  bigList2.push(list);
+  return findNumbers(list);
+}
+
+findNumbers([["1", "shiny", "gold"]]);
+console.log(
+  bigList2
+    .flat()
+    .map((e) => +e[0])
+    .reduce((acc, cur) => acc + cur, 0)
+);
