@@ -7,8 +7,11 @@ function runGameBoy(arr) {
   let visited = [];
   let ind = 0;
   while (visited.indexOf(ind) == -1) {
+    if (arr[ind] === undefined) {
+      return [acc, ind, arr.length];
+    }
     let token = arr[ind].split(" ");
-    if (arr[ind].split(" ")[0] === "acc") {
+    if (token[0] === "acc") {
       acc += +token[1];
       visited.push(ind);
       ind++;
@@ -20,7 +23,33 @@ function runGameBoy(arr) {
       ind += +token[1];
     }
   }
-  return acc;
+  return [acc, ind, arr.length];
 }
 
-console.log(runGameBoy(data));
+// console.log(runGameBoy(data));
+
+//PART 2
+
+function swapAndRun(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let token = arr[i].split(" ");
+    let dummyArr = [...arr];
+    if (token[0] === "jmp") {
+      token[0] = "nop";
+      dummyArr[i] = token[0] + " " + token[1];
+      let result = runGameBoy(dummyArr);
+      if (result[1] == result[2]) {
+        return result[0];
+      }
+    } else if (token[0] === "nop") {
+      token[0] = "jmp";
+      dummyArr[i] = token[0] + " " + token[1];
+      let result = runGameBoy(dummyArr);
+      if (result[1] == result[2]) {
+        return result[0];
+      }
+    }
+  }
+}
+
+console.log(swapAndRun(data));
