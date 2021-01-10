@@ -31,4 +31,24 @@ function encodingErr(arr) {
   }
 }
 
-console.log(encodingErr(data));
+// console.log(encodingErr(data));
+
+//Part 2
+let theNum = 776203571;
+function findSeq(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let sum = arr[i];
+    for (let j = i + 1; j < arr.length; j++) {
+      sum += arr[j];
+      if (sum > theNum) {
+        break;
+      } else if (sum == theNum) {
+        let arrSegment = arr.slice(i, j + 1).sort((a, b) => a - b);
+
+        return arrSegment[0] + arrSegment[arrSegment.length - 1];
+      }
+    }
+  }
+}
+
+console.log(findSeq(data));
