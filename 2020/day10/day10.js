@@ -19,4 +19,18 @@ function quickSort(arr) {
   return [...quickSort(left), pivot, ...quickSort(right)];
 }
 
-console.log(quickSort(data));
+function findFreqs(arr) {
+  let sorted = quickSort(arr);
+  let threes = 0;
+  let ones = 0;
+  for (let i = 0; i < sorted.length; i++) {
+    if (sorted[i + 1] == 1 + sorted[i]) {
+      ones++;
+    } else if (sorted[i + 1] == 3 + sorted[i]) {
+      threes++;
+    }
+  }
+  return (threes + 1) * (ones + 1);
+}
+
+console.log(findFreqs(data));
