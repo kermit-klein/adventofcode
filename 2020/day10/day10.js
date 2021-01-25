@@ -33,4 +33,31 @@ function findFreqs(arr) {
   return (threes + 1) * (ones + 1);
 }
 
-console.log(findFreqs(data));
+// console.log(findFreqs(data));
+
+// PART 2
+
+let max = Math.max(...data);
+let newData = [...data];
+newData.push(max + 3);
+
+const memo = {};
+
+function findCombis(currentEnd, availAdapters) {
+  if (currentEnd == max) {
+    return 1;
+  }
+  let count = 0;
+  for (let i = 1; i <= 3; i++) {
+    if (availAdapters.includes(currentEnd + i)) {
+      const remaining = availAdapters.filter((value) => value > currentEnd + i);
+      if (memo[currentEnd + i] == null) {
+        memo[currentEnd + i] = findCombis(currentEnd + i, remaining);
+      }
+      count += memo[currentEnd + i];
+    }
+  }
+  return count;
+}
+
+console.log(findCombis(0, newData));
